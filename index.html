@@ -34,6 +34,10 @@
 function square(n: number): number {
   return n * n;
 }
+//ou ainda
+function square(n/*: number*/)/*: number*/ {
+  return n * n;
+}
 </code></pre>
 				</section>
 				<section>
@@ -97,13 +101,6 @@ type Response = {
   value?: boolean
 };
 </code></pre>			
-					<p>Any</p>
-<pre><code data-trim>
-//Evitar, usar pra compatibilidade
-function add(one: any, two: any): number {
-  return one + two;
-}
-</code></pre>
 				</section>
 				<section>
 					<p>Nominal typing<p>
@@ -145,7 +142,7 @@ type MyObject3 = {| //Exact (precisa de todas as properties)
 					<p>Outros tipos</p>
 					<ul>
 						<li>Class Types (não muda muito)</li>
-						<li>Array Types (ex: Array<boolean>)</li>
+						<li>Array Types (ex: Array&lt;boolean&gt;)</li>
 						<li>Tuple Types (ex: tuple2: [number, boolean] = [1, true])</li>
 						<li>Interface Types</li>
 						<li>Intersection Types (igual union, mas tem que ser de todos os tipos)</li>
