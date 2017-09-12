@@ -7,7 +7,7 @@
 		<title>reveal.js</title>
 
 		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css">
+		<link rel="stylesheet" href="css/theme/serif.css">
 
 		<!-- Theme used for syntax highlighting of code -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -24,8 +24,148 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+				<section>
+					<p><img src="img/flowbanner.jpg"></img></p>
+				</section>
+				<section>Opcional, é só instalar 
+<pre><code data-trim>
+// @flow
+//Primeira linha com o comentário indicando que vai ser feita checagem de tipo nesse arquivo
+function square(n: number): number {
+  return n * n;
+}
+</code></pre>
+				</section>
+				<section>
+					<p>Tipos</p>
+				</section>
+				<section>
+					<p>Primitivas</p>
+<pre><code data-trim>
+const x : number = 42; //só exemplo, o tipo é inferido
+function acceptsString(value: string) {
+  // ...
+}
+</code></pre>			
+					<p>Group of types (Union types)</p>
+<pre><code data-trim>
+function stringifyBasicValue(value: string | number) {
+  return '' + value;//atende todos os casos
+}
+</code></pre>
+					<p>Generic</p>
+<pre><code data-trim>
+function identity&lt;T&gt;(value: T): T {
+  return value;
+}
+</code></pre>
+				</section>
+				<section>
+					<p>Mixed</p>
+<pre><code data-trim>
+function stringify(value: mixed) {
+  return "" + value; // Error!
+}
+//Obrigado a fazer type refining
+function stringify(value: mixed) {
+  if (typeof value === 'string') {
+    return "" + value; // Works!
+  } else {
+    return "";
+  }
+}
+</code></pre>			
+					<p>Any</p>
+<pre><code data-trim>
+//Evitar, usar pra compatibilidade
+function add(one: any, two: any): number {
+  return one + two;
+}
+</code></pre>
+				</section>
+				<section>
+					<p>Maybe</p>
+<pre><code data-trim>
+function acceptsMaybeNumber(value: ?number) {//sem essa anotação não dá pra chamar com parametro null
+  // ...
+}
+</code></pre>			
+					<p>Maybe property</p>
+<pre><code data-trim>
+type Response = {
+  success: boolean,
+  value?: boolean
+};
+</code></pre>			
+					<p>Any</p>
+<pre><code data-trim>
+//Evitar, usar pra compatibilidade
+function add(one: any, two: any): number {
+  return one + two;
+}
+</code></pre>
+				</section>
+				<section>
+					<p>Nominal typing<p>
+<pre><code data-trim>
+class Foo { method(input: string) { /* ... */ } }
+class Bar { method(input: string) { /* ... */ } }
+
+let foo: Foo = new Bar(); // Error!
+</code></pre>
+					<p>Structural typing</p>
+<pre><code data-trim>
+class Foo { method(input: string) { /* ... */ } }
+class Bar { method(input: string) { /* ... */ } }
+
+let foo: Foo = new Bar(); // Works!
+</code></pre>
+				</section>
+				<section>
+					<p>Usa Structural typing</p>
+					<p>Boa adaptação com código existente</p>
+				</section>
+				<section>
+					<p>Type Aliases</p>
+<pre><code data-trim>
+type MyObject = { //Sealed (Sem novas properties)
+  foo: number,
+  bar: boolean,
+  baz: string,
+};
+type MyObject2 = {}; //Unsealed
+type MyObject3 = {| //Exact (precisa de todas as properties)
+  foo: number,
+  bar: boolean,
+  baz: string,
+|};
+</code></pre>
+				</section>
+				<section>
+					<p>Outros tipos</p>
+					<ul>
+						<li>Class Types (não muda muito)</li>
+						<li>Array Types (ex: Array<boolean>)</li>
+						<li>Tuple Types (ex: tuple2: [number, boolean] = [1, true])</li>
+						<li>Interface Types</li>
+						<li>Intersection Types (igual union, mas tem que ser de todos os tipos)</li>
+						<li>Type Variance (espero nunca usar)</li>
+					<ul>
+				</section>
+				<section>
+					<p>Subtypes (especialização de tipos)</p>
+					<p>Descrição de cor como um subset de string<p>
+<pre><code data-trim>
+type cor = "AZUL" | "AMARELO" | "VERMELHO";
+const corDoBalao = "VERMELHO"; //ok
+const corDoBalao2 = "VERDE"; //erro
+const corDoBalao3 = "Vermelho"; //erro
+</code></pre>
+				</section>
+				<section>
+					<p>Quero ver funcionando</p>
+					<img src="img/show.gif"></img>
+				</section>
 			</div>
 		</div>
 
